@@ -12,32 +12,32 @@ node {
    
    stage('Run Maven Container') {
        
-      //   //Remove maven-build-container if it exisits
-      //   sh " docker rm -f maven-build-container"
-        
-      //   //Run maven image
-      //   sh "docker run --rm --name maven-build-container maven-build"
-
         //Remove maven-build-container if it exisits
-        bat " docker rm -f maven-build-container"
+        sh " docker rm -f maven-build-container"
         
         //Run maven image
-        bat "docker run --rm --name maven-build-container maven-build"
+        sh "docker run --rm --name maven-build-container maven-build"
+
+      //   //Remove maven-build-container if it exisits
+      //   bat " docker rm -f maven-build-container"
+        
+      //   //Run maven image
+      //   bat "docker run --rm --name maven-build-container maven-build"
 
         
    }
    
    stage('Deploy Spring Boot Application') {
         
-      //    //Remove maven-build-container if it exisits
-      //   sh " docker rm -f java-deploy-container"
+         //Remove maven-build-container if it exisits
+        sh " docker rm -f java-deploy-container"
        
-      //   sh "docker run --name java-deploy-container --volumes-from maven-build-container -d -p 8080:8080 denisdbell/petclinic-deploy"
+        sh "docker run --name java-deploy-container --volumes-from maven-build-container -d -p 8080:8080 denisdbell/petclinic-deploy"
 
-                 //Remove maven-build-container if it exisits
-        bat " docker rm -f java-deploy-container"
+      //            //Remove maven-build-container if it exisits
+      //   bat " docker rm -f java-deploy-container"
        
-        bat "docker run --name java-deploy-container --volumes-from maven-build-container -d -p 8080:8080 denisdbell/petclinic-deploy"
+      //   bat "docker run --name java-deploy-container --volumes-from maven-build-container -d -p 8080:8080 denisdbell/petclinic-deploy"
 
    }
 
